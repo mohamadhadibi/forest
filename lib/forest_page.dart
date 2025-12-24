@@ -15,16 +15,16 @@ class ForestPage extends StatefulWidget {
 
 class _ForestPageState extends State<ForestPage> {
   List<ItemModel> items = [
-    ItemModel(state: ItemStateEnum.done),
-    ItemModel(state: ItemStateEnum.done),
-    ItemModel(state: ItemStateEnum.done),
-    ItemModel(state: ItemStateEnum.active),
-    ItemModel(state: ItemStateEnum.lock),
-    ItemModel(state: ItemStateEnum.lock),
-    ItemModel(state: ItemStateEnum.lock),
-    ItemModel(state: ItemStateEnum.lock),
-    ItemModel(state: ItemStateEnum.lock),
-    ItemModel(state: ItemStateEnum.lock),
+    ItemModel(state: ItemStateEnum.done, title: 1),
+    ItemModel(state: ItemStateEnum.done, title: 2),
+    ItemModel(state: ItemStateEnum.done, title: 3),
+    ItemModel(state: ItemStateEnum.active, title: 4),
+    ItemModel(state: ItemStateEnum.lock, title: 5),
+    ItemModel(state: ItemStateEnum.lock, title: 6),
+    ItemModel(state: ItemStateEnum.lock, title: 7),
+    ItemModel(state: ItemStateEnum.lock, title: 8),
+    ItemModel(state: ItemStateEnum.lock, title: 9),
+    ItemModel(state: ItemStateEnum.lock, title: 10),
   ];
 
   @override

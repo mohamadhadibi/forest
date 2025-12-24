@@ -12,6 +12,7 @@ class ForestListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final listSize = items.length + 1;
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -22,7 +23,7 @@ class ForestListWidget extends StatelessWidget {
         crossAxisSpacing: 0,
         childAspectRatio: 2,
       ),
-      itemCount: items.length + 1,
+      itemCount: listSize,
       itemBuilder: (context, index) {
         if (index == 0) {
           return const SizedBox();
@@ -61,7 +62,9 @@ class ForestListWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              DashedPath(color: AppColors.iconColor, type: dash),
+              if ((index != (listSize - 1) && listSize.isEven) ||
+                  listSize.isOdd)
+                DashedPath(color: AppColors.iconColor, type: dash),
               Align(alignment: align, child: _buildIconBox(items[index - 1])),
             ],
           ),
@@ -86,11 +89,23 @@ class ForestListWidget extends StatelessWidget {
           ),
         ],
       ),
+      child: Column(
+        children: [
+          Icon(
+            item.state.icon(),
+            color: AppColors.iconColor,
+            fontWeight: FontWeight.bold,
+          ),
+          Text(item.title.toString()),
+        ],
+      ),
+      /*
       child: Icon(
         item.state.icon(),
         color: AppColors.iconColor,
         fontWeight: FontWeight.bold,
       ),
+*/
     );
   }
 }
