@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:forest/models/item_model.dart';
 import 'package:forest/models/item_state_enum.dart';
 
 import 'colors.dart';
+import 'dotted/dash_path_type.dart';
+import 'dotted/dashed_path.dart';
 
 class ForestListWidget extends StatelessWidget {
   final List<ItemModel> items;
@@ -11,76 +12,93 @@ class ForestListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _buildZigzagRows(),
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 16, vertical: 0),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 0,
+        childAspectRatio: 3,
+      ),
+      itemCount: items.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return const SizedBox();
+        }
+
+        final rowIndex = index ~/ 2;
+
+        Alignment align = Alignment.center;
+        DashPathType dash = DashPathType.straight;
+        if(rowIndex.isEven) {
+          // row 1, 3
+          if(index.isEven) {
+            // left
+            align = Alignment.center;
+            dash = DashPathType.curveLeftUp;
+          } else {
+            // right
+            align = Alignment.centerLeft;
+            dash = DashPathType.curveRightDown;
+          }
+        } else {
+          // row 2, 4
+          if(index.isEven) {
+            // left
+            align = Alignment.centerRight;
+            dash = DashPathType.curveLeftDown;
+          } else {
+            // right
+            align = Alignment.center;
+            dash = DashPathType.curveRightUp;
+          }
+        }
+
+        return Padding(
+          padding: EdgeInsets.only(left: 0, right: 0),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if(index != items.length)
+              DashedPath(
+                color: AppColors.iconColor,
+                type: dash,
+              ),
+              Align(
+                alignment: align,
+                child: _buildIconBox(items[index - 1]),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
-
-  List<Widget> _buildZigzagRows() {
-    List<Widget> rows = [];
-
-    for (int i = 0; i < items.length; i++) {
-      if (i == 0) {
-        rows.add(Center(child: _buildIconBox(items[i])));
-      } else {
-        if (i % 2 == 1 && i + 1 < items.length) {
-          bool leftToRight = ((i ~/ 2) % 2 == 0);
-          rows.add(
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Row(
-                mainAxisAlignment:
-                leftToRight ? MainAxisAlignment.start : MainAxisAlignment.end,
-                children: [
-                  if (!leftToRight) _buildIconBox(items[i + 1]),
-                  _buildDottedLine(),
-                  _buildIconBox(items[i]),
-                  if (leftToRight) _buildIconBox(items[i + 1]),
-                ],
-              ),
-            ),
-          );
-          i++;
-        }
-      }
-    }
-
-    return rows;
-  }
-
   Widget _buildIconBox(ItemModel item) {
     return Container(
-      width: 48,
-      height: 48,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      width: 60,
+      height: 52,
       decoration: BoxDecoration(
         color: item.state.color(),
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(
+          color: Colors.white,
+          width: 2,
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.iconColor,
+            color: AppColors.iconColor.withValues(alpha: 0.3),
             blurRadius: 4,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Icon(item.state.icon(), color: AppColors.iconColor),
-    );
-  }
-
-  Widget _buildDottedLine() {
-    return SizedBox(
-      width: 40,
-      height: 48,
-      child: DottedBorder(
-        options: const RoundedRectDottedBorderOptions(
-          dashPattern: [4, 4],
-          strokeWidth: 1.5,
-          radius: Radius.circular(12),
-          color: AppColors.iconColor,
-          padding: EdgeInsets.zero,
-        ),
-        child: const SizedBox.expand(),
+      child: Icon(
+        item.state.icon(),
+        color: AppColors.iconColor,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

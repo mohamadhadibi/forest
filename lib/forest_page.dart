@@ -119,7 +119,6 @@ class _ForestPageState extends State<ForestPage> {
               ),
             ],
           ),
-
           Container(
             constraints: BoxConstraints( minHeight: MediaQuery.of(context).size.height * 0.6, ),
             decoration: BoxDecoration(
