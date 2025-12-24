@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum ItemStateEnum {
-  done,
-  active,
-  lock,
-}
+enum ItemStateEnum { done, active, lock }
 
 extension ItemStateEnumExt on ItemStateEnum {
   String toValue() {

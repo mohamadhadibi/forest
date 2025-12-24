@@ -20,7 +20,7 @@ class ForestListWidget extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 0,
         crossAxisSpacing: 0,
-        childAspectRatio: 3,
+        childAspectRatio: 2,
       ),
       itemCount: items.length + 1,
       itemBuilder: (context, index) {
@@ -32,9 +32,9 @@ class ForestListWidget extends StatelessWidget {
 
         Alignment align = Alignment.center;
         DashPathType dash = DashPathType.straight;
-        if(rowIndex.isEven) {
+        if (rowIndex.isEven) {
           // row 1, 3
-          if(index.isEven) {
+          if (index.isEven) {
             // left
             align = Alignment.center;
             dash = DashPathType.curveLeftUp;
@@ -45,7 +45,7 @@ class ForestListWidget extends StatelessWidget {
           }
         } else {
           // row 2, 4
-          if(index.isEven) {
+          if (index.isEven) {
             // left
             align = Alignment.centerRight;
             dash = DashPathType.curveLeftDown;
@@ -61,21 +61,15 @@ class ForestListWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              if(index != items.length)
-              DashedPath(
-                color: AppColors.iconColor,
-                type: dash,
-              ),
-              Align(
-                alignment: align,
-                child: _buildIconBox(items[index - 1]),
-              ),
+              DashedPath(color: AppColors.iconColor, type: dash),
+              Align(alignment: align, child: _buildIconBox(items[index - 1])),
             ],
           ),
         );
       },
     );
   }
+
   Widget _buildIconBox(ItemModel item) {
     return Container(
       width: 60,
@@ -83,10 +77,7 @@ class ForestListWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: item.state.color(),
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(
-          color: Colors.white,
-          width: 2,
-        ),
+        border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
           BoxShadow(
             color: AppColors.iconColor.withValues(alpha: 0.3),
@@ -102,5 +93,4 @@ class ForestListWidget extends StatelessWidget {
       ),
     );
   }
-
 }

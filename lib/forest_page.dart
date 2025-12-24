@@ -38,10 +38,7 @@ class _ForestPageState extends State<ForestPage> {
         centerTitle: false,
         leading: IconButton(
           onPressed: () {},
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColors.toolbarColor,
-          ),
+          icon: Icon(Icons.arrow_back, color: AppColors.toolbarColor),
         ),
         title: Text(
           "Gesundheitsreise",
@@ -86,10 +83,7 @@ class _ForestPageState extends State<ForestPage> {
               onPressed: () {},
               child: const Text(
                 "Aktuelle Etappe öffnen",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
           ),
@@ -97,10 +91,7 @@ class _ForestPageState extends State<ForestPage> {
 
           Stack(
             children: [
-              Container(
-                height: 120,
-                color: AppColors.skyColor,
-              ),
+              Container(height: 120, color: AppColors.skyColor),
               ClipPath(
                 clipper: HalfCircleClipper(),
                 child: Container(
@@ -120,15 +111,14 @@ class _ForestPageState extends State<ForestPage> {
             ],
           ),
           Container(
-            constraints: BoxConstraints( minHeight: MediaQuery.of(context).size.height * 0.6, ),
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height * 0.6,
+            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.forestLightColor,
-                  AppColors.forestDarkColor,
-                ],
+                colors: [AppColors.forestLightColor, AppColors.forestDarkColor],
               ),
             ),
             child: ForestListWidget(items: items),
@@ -138,4 +128,3 @@ class _ForestPageState extends State<ForestPage> {
     );
   }
 }
-

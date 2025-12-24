@@ -61,7 +61,11 @@ class _DashedPathPainter extends CustomPainter {
         final pos = metric.getTangentForOffset(distance);
         if (pos != null) {
           canvas.drawRect(
-            Rect.fromCenter(center: pos.position, width: strokeWidth, height: strokeWidth * 1.4),
+            Rect.fromCenter(
+              center: pos.position,
+              width: strokeWidth,
+              height: strokeWidth * 1.4,
+            ),
             paint,
           );
         }
@@ -101,12 +105,7 @@ class _DashedPathPainter extends CustomPainter {
     path.moveTo(0, midY);
     path.lineTo(size.width - r, midY);
 
-    final rect = Rect.fromLTWH(
-      size.width - 2 * r,
-      midY,
-      2 * r,
-      2 * r,
-    );
+    final rect = Rect.fromLTWH(size.width - 2 * r, midY, 2 * r, 2 * r);
 
     path.arcTo(rect, -3.14159 / 2, 3.14159 / 2, false);
     return path;
@@ -120,12 +119,7 @@ class _DashedPathPainter extends CustomPainter {
     path.moveTo(0, midY);
     path.lineTo(size.width - r, midY);
 
-    final rect = Rect.fromLTWH(
-      size.width - 2 * r,
-      midY - 2 * r,
-      2 * r,
-      2 * r,
-    );
+    final rect = Rect.fromLTWH(size.width - 2 * r, midY - 2 * r, 2 * r, 2 * r);
 
     path.arcTo(rect, 3.14159 / 2, -3.14159 / 2, false);
     return path;
@@ -136,7 +130,6 @@ class _DashedPathPainter extends CustomPainter {
       ..multiply(Matrix4.diagonal3Values(-1, 1, 1));
     return original.transform(matrix.storage);
   }
-
 
   @override
   bool shouldRepaint(covariant _DashedPathPainter oldDelegate) {
