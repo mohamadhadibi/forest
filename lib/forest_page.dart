@@ -27,104 +27,121 @@ class _ForestPageState extends State<ForestPage> {
     ItemModel(state: ItemStateEnum.lock, title: 10),
   ];
 
+  final double maxWidth = 800;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: AppColors.skyColor,
-      appBar: AppBar(
-        backgroundColor: AppColors.skyColor,
-        elevation: 0,
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.arrow_back, color: AppColors.toolbarColor),
-        ),
-        title: Text(
-          "Gesundheitsreise",
-          style: TextStyle(
-            color: AppColors.toolbarColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final double contentWidth = width > maxWidth ? maxWidth : width;
 
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const SizedBox(height: 120),
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
-              "Mit Guido auf deiner\n Reise zu mehr\n Wohlbefinden.",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.iconColor,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonColor,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 20,
+        return Center(
+          child: SizedBox(
+            width: contentWidth,
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              backgroundColor: AppColors.skyColor,
+              appBar: AppBar(
+                backgroundColor: AppColors.skyColor,
+                elevation: 0,
+                centerTitle: false,
+                leading: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_back, color: AppColors.toolbarColor),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Aktuelle Etappe öffnen",
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-          ),
-          const SizedBox(height: 40),
-
-          Stack(
-            children: [
-              Container(height: 120, color: AppColors.skyColor),
-              ClipPath(
-                clipper: HalfCircleClipper(),
-                child: Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        AppColors.forestLightColor,
-                        AppColors.forestLightColor,
-                      ],
-                    ),
+                title: Text(
+                  "Gesundheitsreise",
+                  style: TextStyle(
+                    color: AppColors.toolbarColor,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
-          ),
-          Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height * 0.6,
-            ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [AppColors.forestLightColor, AppColors.forestDarkColor],
+
+              body: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const SizedBox(height: 120),
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      "Mit Guido auf deiner\n Reise zu mehr\n Wohlbefinden.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.iconColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.buttonColor,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 20,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Aktuelle Etappe öffnen",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+
+                  Stack(
+                    children: [
+                      Container(height: 120, color: AppColors.skyColor),
+                      ClipPath(
+                        clipper: HalfCircleClipper(),
+                        child: Container(
+                          height: 120,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                AppColors.forestLightColor,
+                                AppColors.forestLightColor,
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height * 0.6,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColors.forestLightColor,
+                          AppColors.forestDarkColor,
+                        ],
+                      ),
+                    ),
+                    child: ForestListWidget(items: items),
+                  ),
+                ],
               ),
             ),
-            child: ForestListWidget(items: items),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
